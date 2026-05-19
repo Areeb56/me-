@@ -41,6 +41,8 @@ export default function AnalyticsPage() {
     queryFn: () => api.get("/api/analytics/overview"),
   });
 
+  const m = metrics as any;
+
   const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6"];
 
   return (
@@ -52,10 +54,10 @@ export default function AnalyticsPage() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {[
-          { title: "Emails Sent", value: metrics?.emails?.sent ?? 0, icon: Mail },
-          { title: "Reply Rate", value: `${((metrics?.emails?.replyRate ?? 0) * 100).toFixed(1)}%`, icon: BarChart3 },
-          { title: "Agent Runs", value: metrics?.agents?.totalRuns ?? 0, icon: Bot },
-          { title: "Est. Cost", value: `$${(metrics?.agents?.totalRuns ?? 0) * 0.05}`, icon: DollarSign },
+          { title: "Emails Sent", value: m?.emails?.sent ?? 0, icon: Mail },
+          { title: "Reply Rate", value: `${((m?.emails?.replyRate ?? 0) * 100).toFixed(1)}%`, icon: BarChart3 },
+          { title: "Agent Runs", value: m?.agents?.totalRuns ?? 0, icon: Bot },
+          { title: "Est. Cost", value: `$${(m?.agents?.totalRuns ?? 0) * 0.05}`, icon: DollarSign },
         ].map((stat, i) => (
           <Card key={i} className="glass-card">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
