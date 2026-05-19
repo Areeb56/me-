@@ -4,8 +4,8 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "pnpm dev",
-    "healthcheckPath": "/health",
+    "startCommand": "cd apps/web && pnpm dev",
+    "healthcheckPath": "/",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
