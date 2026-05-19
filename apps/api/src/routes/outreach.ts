@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { db } from "../db";
 import { outreachEmails, contacts, campaigns, crmDeals } from "../db/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, count } from "drizzle-orm";
 import { emailSendQueue } from "../lib/queue";
 import { getStreamGateway } from "../websocket/stream.gateway";
 
@@ -39,7 +39,7 @@ export async function outreachRoutes(fastify: FastifyInstance) {
       .limit(limit)
       .offset(offset);
 
-    const [{ count }] = await db.select({ count: db.$count(outreachEmails) });
+    const [{ count: total }] = await db.select({ count: count() }).from(outreachEmails);
 
     return {
       emails,

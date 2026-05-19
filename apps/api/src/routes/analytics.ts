@@ -21,8 +21,8 @@ export async function analyticsRoutes(fastify: FastifyInstance) {
     };
   });
 
-  fastify.get("/email-performance", async () => {
-    const query = fastify.getCurrentRequest().query as Record<string, string>;
+  fastify.get("/email-performance", async (request) => {
+    const query = request.query as Record<string, string>;
     const days = parseInt(query.days ?? "30");
 
     const dailyMetrics = await analyticsService.getDailyMetrics(days);

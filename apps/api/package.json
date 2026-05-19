@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc && tsc-alias",
+    "build": "tsc --noEmit false --outDir dist --module commonjs --moduleResolution node10",
     "start": "node dist/server.js",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",

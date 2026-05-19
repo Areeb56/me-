@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { db } from "../db";
 import { leads, contacts, crmDeals } from "../db/schema";
-import { eq, desc, like, and, gte, lte, inArray } from "drizzle-orm";
+import { eq, desc, like, and, gte, lte, inArray, count } from "drizzle-orm";
 import { leadResearchQueue } from "../lib/queue";
 import { getStreamGateway } from "../websocket/stream.gateway";
 
@@ -59,7 +59,7 @@ export async function leadsRoutes(fastify: FastifyInstance) {
 
     const allLeads = await baseQuery.orderBy(desc(leads.createdAt)).limit(limit).offset(offset);
 
-    const [{ count }] = await db.select({ count: db.$count(leads) }).from(leads);
+    const [{ count: total }] = await db.select({ count: count() }).from(leads);
 
     return reply.send({
       leads: allLeads,

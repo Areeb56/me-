@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { db } from "../db";
 import { agentRuns } from "../db/schema";
-import { eq, desc, and, gte } from "drizzle-orm";
+import { eq, desc, and, gte, count } from "drizzle-orm";
 
 export async function agentsRoutes(fastify: FastifyInstance) {
   fastify.get("/status", async () => {
@@ -60,7 +60,7 @@ export async function agentsRoutes(fastify: FastifyInstance) {
 
     const runs = await baseQuery.orderBy(desc(agentRuns.createdAt)).limit(limit).offset(offset);
 
-    const [{ count }] = await db.select({ count: db.$count(agentRuns) });
+    const [{ count: total }] = await db.select({ count: count() }).from(agentRuns);
 
     return {
       runs,

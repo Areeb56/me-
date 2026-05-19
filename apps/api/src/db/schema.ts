@@ -206,10 +206,9 @@ export const outreachEmailsRelations = relations(outreachEmails, ({ one }) => ({
   }),
 }));
 
-export const agentRunsRelations = relations(agentRuns, ({ one, many }) => ({
+export const agentRunsRelations = relations(agentRuns, ({ one }) => ({
   parent: one(agentRuns, {
     fields: [agentRuns.parentRunId],
     references: [agentRuns.id],
   }),
-  children: many(agentRuns),
 }));
