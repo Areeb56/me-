@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "aios-api"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["aios-api:3001"]
+
+  - job_name: "aios-orchestrator"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["aios-orchestrator:8001"]
+
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+
+record:
+  rules:
+    - record: aios:agent_runs:rate5m
+      expr: rate(aios_agent_runs_total[5m])
+    - record: aios:emails:reply_rate
+      expr: aios_emails_replied_total / aios_emails_sent_total
+    - record: aios:deals:win_rate
+      expr: aios_deals_won_total / aios_agent_runs_total{agent_type="crm_manager"}

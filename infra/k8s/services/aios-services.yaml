@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aios-web
+  namespace: aios
+spec:
+  selector:
+    app: aios-web
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aios-api
+  namespace: aios
+spec:
+  selector:
+    app: aios-api
+  ports:
+    - port: 80
+      targetPort: 3001
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aios-orchestrator
+  namespace: aios
+spec:
+  selector:
+    app: aios-orchestrator
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: ClusterIP

@@ -1,0 +1,7 @@
+{
+  "name": "@aios/ui-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./tokens.json",
+  "types": "./tokens.d.ts"
+}

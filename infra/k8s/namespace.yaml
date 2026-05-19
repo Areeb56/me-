@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aios
+  labels:
+    name: aios
+    environment: production

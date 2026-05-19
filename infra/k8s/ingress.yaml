@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: aios-ingress
+  namespace: aios
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`aios.example.com`)
+      kind: Rule
+      services:
+        - name: aios-web
+          port: 80
+    - match: Host(`api.aios.example.com`)
+      kind: Rule
+      services:
+        - name: aios-api
+          port: 80
+    - match: Host(`orchestrator.aios.example.com`)
+      kind: Rule
+      services:
+        - name: aios-orchestrator
+          port: 8001
+  tls:
+    certResolver: myresolver
